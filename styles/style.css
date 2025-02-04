@@ -31,12 +31,10 @@ body {
 
 section:nth-of-type(1) {
 
-  display:flex;
-  flex-direction:row-reverse;
+  display:grid;
+  grid-template-columns:clamp(6em, 40%, 12em) 1fr;
   align-items:center;
   gap:.5em 1em;
-  justify-content:start;
-  flex-wrap:wrap-reverse;
 
   padding:1em;
 
@@ -46,7 +44,7 @@ section:nth-of-type(1) {
   h1 {
     margin:0;
     font-family:"Comic Sans MS", fantasy;
-    font-size: clamp(1.75rem, 1.375rem + 1.875vw, 2.5rem);
+    font-size: clamp(1.5rem, 1rem + 2.5vw, 2.5rem);
     
     text-transform:uppercase;
     line-height:1.1;
@@ -64,14 +62,39 @@ section:nth-of-type(1) {
   }
 
   img {
+    order:-1;
     display:block;
-    width:clamp(6em, 40%, 12em);
+    width:100%;
     flex-shrink:0;
     aspect-ratio:1;
     object-fit:cover;
-    border-radius:.25em;
+    border-radius:.5em;
   }
 }
+
+
+/*****************/
+/* ME + BIRTHDAY */
+/*****************/
+
+
+section:nth-of-type(1):has(time) {
+  grid-template-rows:3fr 1fr;
+
+  h1 {
+    align-self:end;
+  }
+
+  time {
+    align-self:start;
+  }
+
+  img{
+    grid-row:span 2;
+  }
+}
+
+
 
 
 /*************/
@@ -115,6 +138,7 @@ section:nth-of-type(2) {
       width:3em;
       aspect-ratio:1;
       object-fit:cover;
+      border-radius:.5em;;
     }
   }
 }

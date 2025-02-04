@@ -7,18 +7,23 @@ const endpointSquad = 'items/person/?filter={"squads":{"squad_id":15}}';
 const urlMe = baseURL + endpointMe;
 const urlSquad = baseURL + endpointSquad;
 
+// de h1
+const h1 = document.querySelector('h1');
+
 // my section
 const mySection = document.querySelector('section:nth-of-type(1)');
-// de H1
-const h1 = document.querySelector('h1');
+
 // de lijst
 const list = document.querySelector('section:nth-of-type(2)');
+
+const fallbackWebsite = "https://youtu.be/dQw4w9WgXcQ?si=WHPj7XWqw3d-GXe7";
 
 
 
 getMyName();
 getMyImage();
 getEverybody();
+getMyBirthday();
 
 
 
@@ -30,10 +35,6 @@ function getMyName() {
 		let myName = myData.name;
 
 		// console.log(myName);
-
-		if (!myName) {
-			myName = "anoniempje";
-		}
 
 		h1.textContent = myName;
 	});	
@@ -47,10 +48,6 @@ function getMyImage() {
 		let myName = myData.name;
 		let myImgSrc = myData.avatar;
 
-		if (!myName) {
-			myName = "anoniempje";
-		}
-
 		if (!myImgSrc) {
 			myImgSrc = "images/placeholder1.svg";
 		}
@@ -63,6 +60,7 @@ function getMyImage() {
 		mySection.append(myImg);
 	});	
 }
+
 
 
 // reserve webiste: https://youtu.be/dQw4w9WgXcQ?si=WHPj7XWqw3d-GXe7
@@ -79,10 +77,6 @@ function getEverybody() {
 			let personName = person.name;
 			let personImgSrc = person.avatar;
 			let personWebsite = person.website;
-
-			if (!personName) {
-				personName = "anoniempje";
-			}
 	
 			if (!personImgSrc) {
 				let randomNr =  Math.floor( Math.random() * 5 ) + 1;
@@ -91,7 +85,7 @@ function getEverybody() {
 			}
 
 			if (!personWebsite) {
-				personWebsite = "https://youtu.be/dQw4w9WgXcQ?si=WHPj7XWqw3d-GXe7";
+				personWebsite = fallbackWebsite;
 			}
 
 			personHTML = 
@@ -108,6 +102,62 @@ function getEverybody() {
 
 
 
+// normal
+
+// function getMyBirthday() {
+// 	getData(urlMe).then( data => {  
+//     // console.log(data.data);
+
+// 		const myData = data.data;
+// 		let myBirthdate = myData.birthdate;
+
+// 		// console.log(myBirdthdate);
+
+// 		// birthdate is not present
+// 		if (!myBirthdate) {
+// 			// do nothing
+// 		}
+// 		// add birthday
+// 		else {
+// 			const myBirthday = document.createElement("time");
+// 			myBirthday.textContent = myBirthdate;
+// 			myBirthday.dateTime = myBirthdate;
+// 			mySection.append(myBirthday);
+// 		}
+// 	});	
+// }
+
+
+
+// fancy
+
+function getMyBirthday() {
+	getData(urlMe).then( data => {  
+    // console.log(data.data);
+
+		const myData = data.data;
+		let myBirthdate = myData.birthdate;
+
+		// console.log(myBirdthdate);
+
+		// birthdate is not present
+		if (!myBirthdate) {
+			// do nothing
+		}
+		// convert birthdate to readable date
+		else {
+			const myBirthdateTimestamp = Date.parse(myBirthdate);
+			const DDMMMMYYFormat = new Intl.DateTimeFormat('nl-nl', { dateStyle: 'long' });
+			myBirthdateDDMMMMYY = DDMMMMYYFormat.format(myBirthdateTimestamp);
+
+			const myBirthday = document.createElement("time");
+			myBirthday.textContent = `🎉 ${myBirthdateDDMMMMYY}`;
+			myBirthday.dateTime = myBirthdate;
+
+			mySection.append(myBirthday);
+		}
+	});	
+}
 
 
 
