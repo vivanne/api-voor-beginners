@@ -16,7 +16,7 @@ const mySection = document.querySelector('section:nth-of-type(1)');
 // de lijst
 const list = document.querySelector('section:nth-of-type(2)');
 
-const fallbackWebsite = "https://youtu.be/dQw4w9WgXcQ?si=WHPj7XWqw3d-GXe7";
+const fallbackWebsite = "https://youtu.be/dQw4w9WgXcQ";
 
 
 
